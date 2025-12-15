@@ -11,6 +11,7 @@ const App = () => {
       id: Date.now(),
       text: noteText.trim()
     };
+    console.log(newNote);
     setNotes([newNote, ...notes]);
     setNoteText('');
   };
@@ -88,7 +89,7 @@ const App = () => {
                 </p>
                 <button
                   onClick={() => handleDeleteNote(note.id)}
-                  className="opacity-100 md:opacity-0 group-hover:opacity-100 p-2.5 text-red-500 hover:text-red-600 hover:bg-red-100 rounded-xl transition-all duration-200 shrink-0 focus:opacity-100 cursor-pointer"
+                  className="opacity-100 group-hover:opacity-100 p-2.5 text-red-500 hover:text-red-600 lg:hover:bg-red-100 rounded-xl transition-all duration-200 shrink-0 focus:opacity-100 cursor-pointer"
                   aria-label="Delete note"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
