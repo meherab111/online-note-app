@@ -7,17 +7,14 @@ const App = () => {
   const handleAddNote = (e) => {
     if (e) e.preventDefault();
     if (!noteText.trim()) return;
-    const newNote = {
-      id: Date.now(),
-      text: noteText.trim()
-    };
-    console.log(newNote);
     setNotes([newNote, ...notes]);
     setNoteText('');
   };
 
-  const handleDeleteNote = (id) => {
-    setNotes(notes.filter(note => note.id !== id));
+  const handleDeleteNote = (index) => {
+    const textCopy = [...notes];
+    textCopy.splice(index, 1);
+    setNotes(textCopy);
   };
 
   return (
@@ -82,13 +79,13 @@ const App = () => {
               <p className="text-xl font-medium">No notes yet. Write something!</p>
             </div>
           ) : (
-            notes.map((note) => (
-              <div key={note.id} className="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 border border-gray-100/50 flex justify-between items-start gap-5">
+            notes.map((note, index) => (
+              <div key={index} className="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 border border-gray-100/50 flex justify-between items-start gap-5">
                 <p className="text-gray-600 leading-relaxed text-base md:text-lg flex-1 font-medium break-all whitespace-pre-wrap">
                   {note.text}
                 </p>
                 <button
-                  onClick={() => handleDeleteNote(note.id)}
+                  onClick={() => handleDeleteNote(index)}
                   className="opacity-100 group-hover:opacity-100 p-2.5 text-red-500 hover:text-red-600 lg:hover:bg-red-100 rounded-xl transition-all duration-200 shrink-0 focus:opacity-100 cursor-pointer"
                   aria-label="Delete note"
                 >
