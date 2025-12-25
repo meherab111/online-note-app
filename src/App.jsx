@@ -1,9 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const App = () => {
   const [notes, setNotes] = useState("");
 
-  const [allNotes, setAllNotes] = useState([]);
+  const [allNotes, setAllNotes] = useState(() => {
+    const getValue = JSON.parse(localStorage.getItem("note"));
+
+    return getValue ? getValue : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("note", JSON.stringify(allNotes));
+  }, [allNotes]);
 
   const handleAddNote = (event) => {
     event.preventDefault();
@@ -14,8 +22,6 @@ const App = () => {
 
     setAllNotes(copiedNotes);
 
-    console.log(copiedNotes);
-
     setNotes("");
   };
 
@@ -25,8 +31,6 @@ const App = () => {
     updatedNotes.splice(index, 1);
 
     setAllNotes(updatedNotes);
-
-    console.log(updatedNotes);
   };
 
   return (
